@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="_template.xhtml">
+		<ui:define name="conteudo">
+		<h3>Busca de Prato</h3>
+			<h:form>
+			<div class="form-group">
+				<h:outputLabel value="Codigo" for="cod"/>
+				<h:inputText id="cod" styleClass="form-control" value="#{pratoBean.prato.codigo}"/>
+			</div>
+			<h:commandButton action="#{pratoBean.buscar()}" value="Buscar" styleClass="btn btn-primary"/>
+		</h:form>
+		<h3>Cadastro de Prato</h3>
+		<h:form>
+			<div class="form-group">
+			<h:outputLabel value="Nome" for="nome" />
+			<h:inputText id="nome" styleClass="form-control" value="#{pratoBean.prato.nome}"/>
+			</div>
+			<div class="form-group">
+			<h:outputLabel value="Preço" for="preco" />
+			<h:inputText id="preco" styleClass="form-control" value="#{pratoBean.prato.preco}"/>
+			</div>
+			<div class="form-group">
+			<h:outputLabel value="Descriçao" for="descricao"/>
+			<h:inputTextarea id="descricao" styleClass="form-control" value="#{pratoBean.prato.descricao}"/>
+			</div>
+			<h:commandButton action="#{pratoBean.cadastrar()}" styleClass="btn btn-primary" value="Cadastrar" />
+		</h:form>
+		</ui:define>
+	</ui:composition>
+</html>
