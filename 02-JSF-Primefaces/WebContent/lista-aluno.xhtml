@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="_template.xhtml">
+		<ui:define name="conteudo">
+			<!-- Listar os Alunos! -->
+			<p:growl/>
+			<p:panel header="Lista de Alunos">
+				<h:form>
+					<h:panelGrid columns="3">
+						<p:outputLabel value="Nome" for="nome"/>
+						<p:autoComplete value="#{listaAlunoBean.nome}" 
+							completeMethod="#{listaAlunoBean.completar}" id="nome"/>
+						<p:commandButton action="#{listaAlunoBean.buscar}"
+							value="Buscar" update="tabela" />
+					</h:panelGrid>
+				</h:form>
+				<p:dataTable var="a" paginator="true" rows="5"
+					paginatorPosition="bottom" id="tabela"
+					value="#{listaAlunoBean.lista}">
+					<p:column headerText="RM">
+						#{a.rm}
+					</p:column>
+					<p:column headerText="Nome">
+						#{a.nome}
+					</p:column>
+					<p:column headerText="Data Nasc.">
+						<h:outputText value="#{a.dataNascimento.time}">
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</p:column>
+					<p:column headerText="CPF">
+						#{a.cpf}
+					</p:column>
+					<p:column headerText="Rating">
+						<p:rating value="#{a.rating}" stars="10"
+							readonly="true"/>
+					</p:column>
+					<p:column>
+						<p:commandButton action="aluno" icon="ui-icon-pencil">
+							<f:setPropertyActionListener value="#{a}" 
+								target="#{alunoBean.aluno}" />
+						</p:commandButton>
+						<p:commandButton 
+							onclick="PF('confirmation').show()"
+							icon="ui-icon-trash">
+							<f:setPropertyActionListener value="#{a.rm}" 
+								target="#{listaAlunoBean.rm}"/>
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<p:confirmDialog widgetVar="confirmation"
+					header="Confirme" message="Tem certeza?">
+					<p:commandButton value="SIM" 
+						oncomplete="PF('confirmation').hide()"
+						action="#{listaAlunoBean.excluir()}"/>
+					<p:commandButton value="Não"
+						onclick="PF('confirmation').hide()"/>	
+				</p:confirmDialog>
+			</p:panel>		
+		</ui:define>
+	</ui:composition>
+</html>
+
+
+
